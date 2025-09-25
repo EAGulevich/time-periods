@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TimePeriods } from './components/TimePeriods/TimePeriods';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
@@ -10,7 +10,6 @@ const App: React.FC = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          border: '1px solid red',
           minWidth: '1440px',
           maxWidth: '1440px',
           height: '1080px',

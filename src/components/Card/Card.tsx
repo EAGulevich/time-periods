@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { CardContent, CardTitle, CardWrapper } from './styles';
 
 type CardProps = {
-  title: string;
+  title: string | number;
   description: string;
 };
 

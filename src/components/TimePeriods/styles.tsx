@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import AnimatedNumber from '../AnimatedNumber/AnimatedNumber';
-import { Swiper } from 'swiper/react';
 
 const CIRCLE_CENTER_Y = 480;
 
@@ -57,6 +56,7 @@ export const Content = styled.div`
 `;
 
 export const Title = styled.div`
+  white-space: pre;
   position: relative;
   font-weight: bold;
   font-size: 56px;

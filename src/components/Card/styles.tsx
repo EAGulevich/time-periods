@@ -17,4 +17,10 @@ export const CardContent = styled.div`
   color: ${({ theme }) => theme.colors.blackBlue};
   font-size: 20px;
   line-height: 30px;
+  height: 90px;
+  max-height: 90px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 `;
