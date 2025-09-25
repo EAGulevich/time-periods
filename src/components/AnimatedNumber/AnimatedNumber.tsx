@@ -1,15 +1,16 @@
-import React from 'react'
+import React from 'react';
 import type { FC } from 'react';
 import { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import styled from 'styled-components';
 
-interface CounterProps {
+type AnimatedNumberProps = {
+  /** Число, которое при изменении будет анимировано */
   value: number;
-}
+};
 
-const Counter: FC<CounterProps> = ({ value }) => {
+/** Компонент для отображения анимированного числа */
+const AnimatedNumber: FC<AnimatedNumberProps> = ({ value, ...props }) => {
   const numberRef = useRef<HTMLDivElement>(null);
   const [displayValue, setDisplayValue] = useState(value);
 
@@ -29,8 +30,6 @@ const Counter: FC<CounterProps> = ({ value }) => {
         gsap.to(numberRef.current, {
           duration: 1,
           innerText: value,
-          // ease: 'power2.inOut',
-          // snap: { innerText: 1 },
           onUpdate: function () {
             const newValue = Math.round(this.targets()[0].innerText);
             numberRef.current!.textContent = newValue.toString();
@@ -39,16 +38,14 @@ const Counter: FC<CounterProps> = ({ value }) => {
         });
       }
     },
-    { dependencies: [value] },
+    { dependencies: [value] }
   );
 
-  return <StyledCounter ref={numberRef}>{displayValue}</StyledCounter>;
+  return (
+    <div ref={numberRef} {...props}>
+      {displayValue}
+    </div>
+  );
 };
 
-const StyledCounter = styled.div`
-  font-size: 56px;
-  font-weight: bold;
-  color: #42567a;
-`;
-
-export default Counter;
+export default AnimatedNumber;

@@ -10,8 +10,6 @@ import {
   VerticalDecorationLine,
   Year,
 } from './styles';
-import { CircleButton } from '../CircleButton/CircleButton';
-import { Card } from '../Card/Card';
 import { RotarySwitch } from '../RotarySwitch/RotarySwitch';
 
 export const TimePeriods: FC = () => {
@@ -23,10 +21,10 @@ export const TimePeriods: FC = () => {
         <VerticalDecorationLine />
         <HorizontalDecorationLine />
         <CircleContainer>
-          {/*<Dates>*/}
-          {/*  <Year>2015</Year>*/}
-          {/*  <Year color={'secondary'}>2022</Year>*/}
-          {/*</Dates>*/}
+          <Dates>
+            <Year value={2017} />
+            <Year color={'secondary'} value={2022} />
+          </Dates>
           <RotarySwitch
             points={[
               { pointNumber: 1, label: 'Литература' },
@@ -40,32 +38,26 @@ export const TimePeriods: FC = () => {
             onChange={newStep => setCurrent(newStep.pointNumber)}
           />
         </CircleContainer>
-        {/*<Content*/}
-        {/*  style={{*/}
-        {/*    display: 'flex',*/}
-        {/*    flexDirection: 'column',*/}
-        {/*    justifyContent: 'space-between',*/}
-        {/*    height: '100%',*/}
-        {/*    flex: 1,*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Title>*/}
-        {/*    <div style={{ paddingLeft: '78px' }}>Исторические<br/>даты</div>*/}
-        {/*  </Title>*/}
+        <Content>
+          <Title>
+            Исторические
+            <br />
+            даты
+          </Title>
 
-        {/*  <div style={{ marginLeft: '78px' }}>*/}
-        {/*    <div> 06/06</div>*/}
-        {/*    <div style={{ display: 'flex', gap: '20px' }}>*/}
-        {/*      <CircleButton />*/}
-        {/*      <CircleButton />*/}
-        {/*    </div>*/}
-        {/*    <div style={{ display: 'flex', gap: '40px' }}>*/}
-        {/*      <Card />*/}
-        {/*      <Card />*/}
-        {/*      <Card />*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</Content>*/}
+          <div>
+            <div> 06/06</div>
+            {/*<div style={{ display: 'flex', gap: '20px' }}>*/}
+            {/*  <CircleButton />*/}
+            {/*  <CircleButton />*/}
+            {/*</div>*/}
+            {/*<div style={{ display: 'flex', gap: '40px' }}>*/}
+            {/*  <Card />*/}
+            {/*  <Card />*/}
+            {/*  <Card />*/}
+            {/*</div>*/}
+          </div>
+        </Content>
       </TimePeriodsWrapper>
     </>
   );

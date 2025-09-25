@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import AnimatedNumber from '../AnimatedNumber/AnimatedNumber';
 
 const CIRCLE_CENTER_Y = 480;
 
@@ -19,7 +20,7 @@ export const VerticalDecorationLine = styled.div`
   z-index: 1;
   top: 0;
   left: 50%;
-  
+
   height: 100%;
   width: 1px;
   background: ${props => props.theme.colors.blackBlue10};
@@ -30,7 +31,7 @@ export const HorizontalDecorationLine = styled.div`
   z-index: 1;
   top: ${CIRCLE_CENTER_Y}px;
   left: 0;
-  
+
   width: 100%;
   height: 1px;
   background: ${props => props.theme.colors.blackBlue10};
@@ -44,43 +45,23 @@ export const CircleContainer = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-//////////////////////////////////////////
+const CONTENT_LEFT_PADDING = 80;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-export const Dates = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 100px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-export const Year = styled.div<{ color?: 'primary' | 'secondary' }>`
-  color: ${({ color }) => (color === 'secondary' ? '#EF5DA8' : '#5D5FEF')};
-  font-weight: bold;
-  line-height: 200px;
-  font-size: 200px;
+  justify-content: space-between;
+  height: 100%;
+  padding: 170px ${CONTENT_LEFT_PADDING}px 104px;
 `;
 
 export const Title = styled.div`
-  display: flex;
+  position: relative;
   font-weight: bold;
   font-size: 56px;
-  line-height: 56px;
+  line-height: 120%;
   max-width: 50%;
-  color: #42567a;
-  align-items: center;
-  position: relative;
-
-  top: calc(50% - 176px);
-  transform: translateY(-100%);
+  color: ${({ theme }) => theme.colors.blackBlue};
 
   &:before {
     position: absolute;
@@ -89,7 +70,31 @@ export const Title = styled.div`
     top: 0;
     bottom: 0;
     width: 5px;
+    left: -${CONTENT_LEFT_PADDING + 1}px;
 
-    background: linear-gradient(to bottom, #3877ee, #ef5da8);
+    background: linear-gradient(
+      to bottom,
+      ${({ theme }) => theme.colors.gradientTop},
+      ${({ theme }) => theme.colors.gradientBottom}
+    );
   }
+`;
+
+export const Dates = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+//////////////////////////////////////////
+
+export const Year = styled(AnimatedNumber)<{ color?: 'primary' | 'secondary' }>`
+  color: ${({ color }) => (color === 'secondary' ? '#EF5DA8' : '#5D5FEF')};
+  font-weight: bold;
+  line-height: 200px;
+  font-size: 200px;
 `;

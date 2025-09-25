@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { TimePeriods } from './components/TimePeriods/TimePeriods';
-import Counter from './components/Counter/Counter';
+import AnimatedNumber from './components/Counter/AnimatedNumber';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 
 const App: React.FC = () => {
-  const [count, setCount] = useState(1998);
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -17,14 +16,6 @@ const App: React.FC = () => {
       >
         <TimePeriods />
       </div>
-      {/*<Counter value={count} />*/}
-      {/*<button*/}
-      {/*  onClick={() => {*/}
-      {/*    setCount(count + 17);*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  inc*/}
-      {/*</button>*/}
     </ThemeProvider>
   );
 };

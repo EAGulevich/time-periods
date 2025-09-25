@@ -4,6 +4,9 @@ export const colors = {
   blackBlue20: '#42567A20',
   dotBorder: '#303E5850',
   dotBackground: '#F4F5F9',
+
+  gradientTop: '#3877ee',
+  gradientBottom: '#ef5da8',
 };
 
 export const theme = {
