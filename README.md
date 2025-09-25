@@ -7,4 +7,4 @@ node v20
  npm run start
 ```
 
-# Посмотреть можно здесь: [https://time-periods-buy2784oq-ekaterinas-projects-73b31f31.vercel.app/](https://time-periods-buy2784oq-ekaterinas-projects-73b31f31.vercel.app/)
+# Посмотреть можно здесь: [https://time-periods.vercel.app/](https://time-periods.vercel.app/)
