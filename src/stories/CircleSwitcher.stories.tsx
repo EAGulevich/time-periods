@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 import { fn } from 'storybook/test';
-import { CircleSwitcher } from '../components/CircleSwitcher/CircleSwitcher';
+import { RotarySwitch } from '../components/CircleSwitcher/RotarySwitch';
 import { useEffect, useState } from 'react';
 
 const InteractiveCircleSwitcher = (args: any) => {
@@ -12,10 +12,10 @@ const InteractiveCircleSwitcher = (args: any) => {
   }, [args.currentStepId]);
 
   return (
-    <CircleSwitcher
+    <RotarySwitch
       {...args}
-      currentStepId={currentStepId}
-      onChangeStep={step => {
+      currentPoint={currentStepId}
+      onChange={step => {
         setCurrentStepId(step.id);
         args.onChangeStep(step);
       }}
@@ -33,15 +33,15 @@ const meta = {
     layout: 'centered',
   },
   args: {
-    onChangeStep: fn(),
+    onChange: fn(),
   },
   argTypes: {
-    currentStepId: {
+    currentPoint: {
       control: 'select',
       options: ['1', '2', '3', '4', '5', '6'], // ID шагов
     },
   },
-} satisfies Meta<typeof CircleSwitcher>;
+} satisfies Meta<typeof RotarySwitch>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

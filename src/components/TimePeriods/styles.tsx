@@ -1,35 +1,50 @@
 import styled from 'styled-components';
 
-export const TimePeriodsWrapper = styled.div`
-  //border: 1px solid #e2e5ec;
-  ////padding: 80px;
-  position: relative;
-  ////min-height: 800px;
-  background: #f4f5f9;
+const CIRCLE_CENTER_Y = 480;
 
-  min-height: 1080px;
+export const TimePeriodsWrapper = styled.div`
+  border-left: 1px solid ${props => props.theme.colors.blackBlue10};
+  border-right: 1px solid ${props => props.theme.colors.blackBlue10};
+  position: relative;
+
+  // TODO: min-width
+  min-width: 1440px;
+  max-width: 1440px;
   height: 1080px;
-  padding: 40px 0;
+  max-height: 1080px;
 `;
 
-export const VericalDecorationLine = styled.div`
+export const VerticalDecorationLine = styled.div`
   position: absolute;
-  height: 100%;
-  width: 1px;
-  background: #e2e5ec;
+  z-index: 1;
   top: 0;
   left: 50%;
+  
+  height: 100%;
+  width: 1px;
+  background: ${props => props.theme.colors.blackBlue10};
 `;
 
 export const HorizontalDecorationLine = styled.div`
   position: absolute;
+  z-index: 1;
+  top: ${CIRCLE_CENTER_Y}px;
+  left: 0;
+  
   width: 100%;
   height: 1px;
-  background: #e2e5ec;
-
-  top: 50%;
-  left: 0;
+  background: ${props => props.theme.colors.blackBlue10};
 `;
+
+export const CircleContainer = styled.div`
+  position: absolute;
+  z-index: 2;
+  top: ${CIRCLE_CENTER_Y}px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+//////////////////////////////////////////
 
 export const Content = styled.div`
   display: flex;
@@ -59,14 +74,14 @@ export const Title = styled.div`
   font-weight: bold;
   font-size: 56px;
   line-height: 56px;
-  max-width: 30%;
+  max-width: 50%;
   color: #42567a;
   align-items: center;
   position: relative;
 
   top: calc(50% - 176px);
   transform: translateY(-100%);
-  
+
   &:before {
     position: absolute;
     content: '';

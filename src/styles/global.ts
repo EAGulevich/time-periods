@@ -5,10 +5,14 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     font-family: "PT Sans", sans-serif;
+    box-sizing: border-box;
   }
   
   body {
     margin: 0;
     padding: 0;
+    background: #fff;
+    box-sizing: border-box;
+    
   }
 `;
