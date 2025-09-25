@@ -8,12 +8,13 @@ export const CardWrapper = styled.div`
 
 export const CardTitle = styled.div`
   font-size: 25px;
-  color: #3877ee;
+  line-height: 120%;
+  color: ${({ theme }) => theme.colors.blue};
 `;
 
 export const CardContent = styled.div`
   width: 400px;
-  color: #42567a;
-  font-size: 25px;
+  color: ${({ theme }) => theme.colors.blackBlue};
+  font-size: 20px;
   line-height: 30px;
 `;

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { CardContent, CardTitle, CardWrapper } from './styles';
 
-export const Card = () => {
+type CardProps = {
+  title: string;
+  description: string;
+};
+
+export const Card: FC<CardProps> = ({ title, description }) => {
   return (
     <CardWrapper>
-      <CardTitle>2015</CardTitle>
-      <CardContent>
-        Телескоп «Хаббл» обнаружил самую удалённую из всех обнаруженных
-        галактик, получившую обозначение GN-z11
-      </CardContent>
+      <CardTitle>{title}</CardTitle>
+      <CardContent>{description}</CardContent>
     </CardWrapper>
   );
 };
