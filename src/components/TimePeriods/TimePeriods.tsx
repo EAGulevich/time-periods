@@ -31,7 +31,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { ArrowButton } from '../ArrowButton/ArrowButton';
-import { ANOTHER_DATA as DATA } from '../../consts';
+import { DATA } from '../../consts';
 
 export const TimePeriods: FC = () => {
   const [current, setCurrent] = useState<number>(1);
