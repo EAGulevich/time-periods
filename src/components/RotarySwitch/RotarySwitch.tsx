@@ -33,7 +33,7 @@ export const RotarySwitch: FC<CircleSwitcherProps> = ({
       degreeOfDisplacement={degreeOfDisplacement}
       pointsCount={points.length}
     >
-      {points.map((step, index) => (
+      {points.map(step => (
         <Item
           key={step.pointNumber}
           pointIndex={step.pointNumber - 1}

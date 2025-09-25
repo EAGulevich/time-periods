@@ -74,8 +74,8 @@ export const Title = styled.div`
 
     background: linear-gradient(
       to bottom,
-      ${({ theme }) => theme.colors.gradientTop},
-      ${({ theme }) => theme.colors.gradientBottom}
+      ${({ theme }) => theme.colors.primary},
+      ${({ theme }) => theme.colors.secondary}
     );
   }
 `;
@@ -90,10 +90,9 @@ export const Dates = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-//////////////////////////////////////////
-
-export const Year = styled(AnimatedNumber)<{ color?: 'primary' | 'secondary' }>`
-  color: ${({ color }) => (color === 'secondary' ? '#EF5DA8' : '#5D5FEF')};
+export const Year = styled(AnimatedNumber)<{ type?: 'primary' | 'secondary' }>`
+  color: ${({ type, theme }) =>
+    type === 'secondary' ? theme.colors.secondary : theme.colors.primary};
   font-weight: bold;
   line-height: 200px;
   font-size: 200px;

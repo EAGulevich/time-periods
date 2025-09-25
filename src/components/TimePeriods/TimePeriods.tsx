@@ -23,7 +23,7 @@ export const TimePeriods: FC = () => {
         <CircleContainer>
           <Dates>
             <Year value={2017} />
-            <Year color={'secondary'} value={2022} />
+            <Year type={'secondary'} value={2022} />
           </Dates>
           <RotarySwitch
             points={[

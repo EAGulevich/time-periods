@@ -5,8 +5,8 @@ export const colors = {
   dotBorder: '#303E5850',
   dotBackground: '#F4F5F9',
 
-  gradientTop: '#3877ee',
-  gradientBottom: '#ef5da8',
+  primary: '#5D5FEF',
+  secondary: '#EF5DA8',
 };
 
 export const theme = {
