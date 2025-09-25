@@ -31,7 +31,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { ArrowButton } from '../ArrowButton/ArrowButton';
-// import { DATA } from '../../consts';
 import { ANOTHER_DATA as DATA } from '../../consts';
 
 export const TimePeriods: FC = () => {
