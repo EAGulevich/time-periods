@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { CircleDecorationLine, Item, ItemText } from './styles';
+import { Dates, Year } from '../TimePeriods/styles';
 
 type Step = {
   id: string | number;
@@ -30,6 +31,7 @@ export const CircleSwitcher: FC<CircleSwitcherProps> = ({
       size={sizes.circle}
       length={steps.length}
     >
+
       {steps.map((step, index) => {
         const isActive = currentStepId === step.id;
         return (
@@ -46,6 +48,7 @@ export const CircleSwitcher: FC<CircleSwitcherProps> = ({
           </Item>
         );
       })}
+
     </CircleDecorationLine>
   );
 };

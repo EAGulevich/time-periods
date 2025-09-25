@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const TimePeriodsWrapper = styled.div`
-  border: 2px solid red;
   //border: 1px solid #e2e5ec;
   ////padding: 80px;
-  //position: relative;
-  //min-height: 1080px;
+  position: relative;
   ////min-height: 800px;
-  //background: #f4f5f9;;
+  background: #f4f5f9;
+
+  min-height: 1080px;
+  height: 1080px;
+  padding: 40px 0;
 `;
 
 export const VericalDecorationLine = styled.div`
@@ -32,15 +34,17 @@ export const HorizontalDecorationLine = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 10%;
 `;
 
 export const Dates = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 200px;
   gap: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const Year = styled.div<{ color?: 'primary' | 'secondary' }>`
@@ -55,15 +59,21 @@ export const Title = styled.div`
   font-weight: bold;
   font-size: 56px;
   line-height: 56px;
-  max-width: 50%;
+  max-width: 30%;
+  color: #42567a;
+  align-items: center;
+  position: relative;
 
+  top: calc(50% - 176px);
+  transform: translateY(-100%);
+  
   &:before {
+    position: absolute;
     content: '';
     display: block;
-    //height: 100%;
-    height: 100px;
-    margin-right: 78px;
-    width: 4px;
+    top: 0;
+    bottom: 0;
+    width: 5px;
 
     background: linear-gradient(to bottom, #3877ee, #ef5da8);
   }
