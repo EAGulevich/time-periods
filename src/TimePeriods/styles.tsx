@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import AnimatedNumber from '../components/AnimatedNumber/AnimatedNumber';
 import { RoundButton } from '../components/RoundButton/RoundButton';
 import { RotarySwitch } from '../components/RotarySwitch/RotarySwitch';
@@ -169,15 +169,23 @@ export const Title = styled.div`
   }
 `;
 
-export const StyledPagination = styled.div`
+export const StyledPagination = styled.div<{ isMobile?: boolean }>`
   display: flex;
   justify-content: center;
   margin-right: 70px;
   position: relative;
+  flex: 1;
+  gap: 10px;
 
   .${SWIPER_PAGINATION_BULLET_CLASS}-active {
     background: ${({ theme }) => theme.colors.blackBlue};
   }
+
+  ${({ isMobile }) =>
+    !isMobile &&
+    css`
+      display: none;
+    `}
 `;
 
 export const StepsWrapper = styled.div`

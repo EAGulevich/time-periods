@@ -113,13 +113,16 @@ export const TimePeriods: FC = () => {
             </StepActions>
           </div>
 
-          {isMobile && <StyledPagination className={SWIPER_PAGINATION_CLASS} />}
+          <StyledPagination
+            isMobile={isMobile}
+            className={SWIPER_PAGINATION_CLASS}
+          />
         </StepsWrapper>
         <Cards ref={cardsRef}>
           <Swiper
             modules={swiperModules}
             navigation={swiperNavigation}
-            pagination={isMobile ? swiperMobilePagination : undefined}
+            pagination={swiperMobilePagination}
             spaceBetween={isMobile ? 25 : 40}
             slidesPerView={isMobile ? 1.4 : 3}
           >
