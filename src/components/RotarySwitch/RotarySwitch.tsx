@@ -36,7 +36,6 @@ export const RotarySwitch: FC<CircleSwitcherProps> = ({
       {points.map(step => (
         <Item
           key={step.pointNumber}
-          pointIndex={step.pointNumber - 1}
           isActive={currentPoint === step.pointNumber}
           onClick={() => onChange(step)}
         >

@@ -11,7 +11,9 @@ export const ItemText = styled.div`
   justify-content: center;
   flex: 1;
 `;
-export const ItemLabel = styled.div<{ isVisible: boolean }>`
+export const ItemLabel = styled.div<{
+  isVisible: boolean;
+}>`
   position: absolute;
   left: calc(100% + 20px);
   color: ${({ theme }) => theme.colors.blackBlue};
@@ -47,7 +49,6 @@ const closedDotStyles = css`
 export const Item = styled(RoundButton).attrs({
   size: 'xl',
 })<{
-  pointIndex: number;
   isActive: boolean;
 }>`
   position: absolute;
