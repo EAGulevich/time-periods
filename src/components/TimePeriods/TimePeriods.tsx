@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FC } from 'react';
 import {
   Cards,
@@ -32,13 +32,41 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { ArrowButton } from '../ArrowButton/ArrowButton';
 import { DATA } from '../../consts';
+import gsap from 'gsap';
+
+// TODO: вынести длительность анимации в константу, сделать одновременное появление лейбла в круге и списка снизу
 
 export const TimePeriods: FC = () => {
   const [current, setCurrent] = useState<number>(1);
+  const cardsRef = useRef<HTMLDivElement | null>(null);
+  const [isCardsVisible, setIsCardsVisible] = useState(false);
 
   const currentPoints = DATA.points.find(p => p.number === current)?.data || [];
   const maxYear = Math.max(...currentPoints.map(p => p.year));
   const minYear = Math.min(...currentPoints.map(p => p.year));
+
+  useEffect(() => {
+    // Показать элемент при изменении isVisible
+    gsap.fromTo(
+      cardsRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: 'power2.in' }
+    );
+  }, [isCardsVisible]);
+
+  const onTogglePoint = (current: number) => {
+    gsap.to(cardsRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.out',
+      onComplete: () => {
+        setIsCardsVisible(!isCardsVisible);
+      },
+    });
+    setTimeout(() => {
+      setCurrent(current);
+    }, 300);
+  };
 
   return (
     <>
@@ -56,7 +84,9 @@ export const TimePeriods: FC = () => {
               pointNumber: item.number,
             }))}
             currentPoint={current}
-            onChange={newStep => setCurrent(newStep.pointNumber)}
+            onChange={newStep => {
+              onTogglePoint(newStep.pointNumber);
+            }}
           />
         </CircleContainer>
         <Content>
@@ -68,17 +98,17 @@ export const TimePeriods: FC = () => {
             <ActionBtns>
               <ArrowButton
                 type={'next'}
-                onClick={() => setCurrent(current - 1)}
+                onClick={() => onTogglePoint(current - 1)}
                 disabled={current === 1}
               />
               <ArrowButton
                 type={'prev'}
-                onClick={() => setCurrent(current + 1)}
+                onClick={() => onTogglePoint(current + 1)}
                 disabled={current === DATA.points.length}
               />
             </ActionBtns>
 
-            <Cards>
+            <Cards ref={cardsRef}>
               <Swiper
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 navigation={{
