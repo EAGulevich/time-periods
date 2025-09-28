@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import AnimatedNumber from '../AnimatedNumber/AnimatedNumber';
-import { RoundButton } from '../RoundButton/RoundButton';
+import AnimatedNumber from '../components/AnimatedNumber/AnimatedNumber';
+import { RoundButton } from '../components/RoundButton/RoundButton';
 
 const CIRCLE_CENTER_Y = 480;
 
@@ -9,10 +9,7 @@ export const TimePeriodsWrapper = styled.div`
   border-right: 1px solid ${props => props.theme.colors.blackBlue10};
   position: relative;
 
-  // TODO: min-width
-  min-width: 1440px;
   max-width: 1440px;
-  height: 1080px;
   max-height: 1080px;
 `;
 
@@ -46,12 +43,31 @@ export const CircleContainer = styled.div`
   transform: translate(-50%, -50%);
 `;
 
+export const Dates = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+export const Year = styled(AnimatedNumber)<{ type?: 'primary' | 'secondary' }>`
+  color: ${({ type, theme }) =>
+    type === 'secondary' ? theme.colors.secondary : theme.colors.primary};
+  font-weight: bold;
+  line-height: 200px;
+  font-size: 200px;
+`;
+
 const CONTENT_LEFT_PADDING = 80;
 
 export const Content = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
   padding: 170px ${CONTENT_LEFT_PADDING}px 104px;
 `;
@@ -64,6 +80,7 @@ export const Title = styled.div`
   line-height: 120%;
   max-width: 50%;
   color: ${({ theme }) => theme.colors.blackBlue};
+  margin-bottom: auto;
 
   &:before {
     position: absolute;
@@ -82,22 +99,15 @@ export const Title = styled.div`
   }
 `;
 
-export const Dates = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  gap: 100px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+export const Steps = styled.div`
+  color: ${({ theme }) => theme.colors.blackBlue};
+  font-size: 14px;
 `;
 
-export const Year = styled(AnimatedNumber)<{ type?: 'primary' | 'secondary' }>`
-  color: ${({ type, theme }) =>
-    type === 'secondary' ? theme.colors.secondary : theme.colors.primary};
-  font-weight: bold;
-  line-height: 200px;
-  font-size: 200px;
+export const StepActions = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
 `;
 
 export const Cards = styled.div`
@@ -121,27 +131,16 @@ const SwiperNavigationButton = styled(RoundButton).attrs({
   }
 `;
 
-export const PrevBtn = styled(SwiperNavigationButton)`
+export const SwiperPrevBtn = styled(SwiperNavigationButton)`
   position: absolute;
   top: 50%;
   left: -40px;
   transform: translateX(-50%);
 `;
 
-export const NextBtn = styled(SwiperNavigationButton)`
+export const SwiperNextBtn = styled(SwiperNavigationButton)`
   position: absolute;
   top: 50%;
   right: -40px;
   transform: translateX(50%);
-`;
-
-export const ActionBtns = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-`;
-
-export const Counter = styled.div`
-  color: ${({ theme }) => theme.colors.blackBlue};
-  font-size: 14px;
 `;
