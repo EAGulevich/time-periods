@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { FC } from 'react';
 import { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
@@ -7,45 +7,62 @@ import gsap from 'gsap';
 type AnimatedNumberProps = {
   /** Число, которое при изменении будет анимировано */
   value: number;
-};
+  /** Длительность анимации в секундах */
+  duration?: number;
+  /** Задержка перед стартом анимации в секундах */
+  delay?: number;
+} & React.HTMLAttributes<HTMLSpanElement>;
 
 /** Компонент для отображения анимированного числа */
-const AnimatedNumber: FC<AnimatedNumberProps> = ({ value, ...props }) => {
-  const numberRef = useRef<HTMLDivElement>(null);
+const AnimatedNumber: FC<AnimatedNumberProps> = ({
+  value,
+  delay = 0,
+  duration = 1,
+  ...props
+}) => {
+  const numberRef = useRef<HTMLSpanElement | null>(null);
   const [displayValue, setDisplayValue] = useState(value);
+
+  useEffect(() => {
+    if (numberRef.current) {
+      numberRef.current.textContent = value.toString();
+      setDisplayValue(value);
+    }
+  }, []);
 
   useGSAP(
     () => {
-      if (numberRef.current) {
-        // Устанавливаем начальное значение, если пустое
-        if (!numberRef.current.textContent) {
-          numberRef.current.textContent = value.toString();
-          setDisplayValue(value);
-        }
-
-        // Останавливаем предыдущие анимации
-        gsap.killTweensOf(numberRef.current);
-
-        // Анимация числа
-        gsap.to(numberRef.current, {
-          duration: 1,
-          innerText: value,
-          onUpdate: function () {
-            const newValue = Math.round(this.targets()[0].innerText);
-            numberRef.current!.textContent = newValue.toString();
-            setDisplayValue(newValue);
-          },
-        });
+      if (!numberRef.current) {
+        return;
       }
+
+      gsap.killTweensOf(numberRef.current);
+
+      gsap.to(numberRef.current, {
+        delay,
+        duration,
+        innerText: value,
+        onUpdate: function () {
+          const newValue = Math.round(this.targets()[0].innerText);
+          if (numberRef.current) {
+            numberRef.current.textContent = newValue.toString();
+          }
+        },
+        onComplete: () => {
+          setDisplayValue(value);
+        },
+      });
+
+      return () => gsap.killTweensOf(numberRef.current);
     },
-    { dependencies: [value] }
+    { dependencies: [value, duration, delay] }
   );
 
   return (
-    <div ref={numberRef} {...props}>
+    <span ref={numberRef} {...props}>
       {displayValue}
-    </div>
+    </span>
   );
 };
 
-export default AnimatedNumber;
+export default React.memo(AnimatedNumber);
