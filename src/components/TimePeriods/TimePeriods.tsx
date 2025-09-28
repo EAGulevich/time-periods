@@ -23,16 +23,16 @@ import { Card } from '../Card/Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import ArrowLeft from '../../assets/icons/ArrowLeft.svg';
 import ArrowRight from '../../assets/icons/ArrowRight.svg';
+import ArrowLeft from '../../assets/icons/ArrowLeft.svg';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { ArrowButton } from '../ArrowButton/ArrowButton';
 import { DATA } from '../../consts';
 import gsap from 'gsap';
+import { RoundButton } from '../RoundButton/RoundButton';
 
 // TODO: вынести длительность анимации в константу, сделать одновременное появление лейбла в круге и списка снизу
 
@@ -96,16 +96,21 @@ export const TimePeriods: FC = () => {
               0{current}/0{DATA.points.length}
             </Counter>
             <ActionBtns>
-              <ArrowButton
-                type={'next'}
+              <RoundButton
+                size={'lg'}
                 onClick={() => onTogglePoint(current - 1)}
                 disabled={current === 1}
-              />
-              <ArrowButton
-                type={'prev'}
+              >
+                <ArrowLeft />
+              </RoundButton>
+
+              <RoundButton
+                size={'lg'}
                 onClick={() => onTogglePoint(current + 1)}
                 disabled={current === DATA.points.length}
-              />
+              >
+                <ArrowRight />
+              </RoundButton>
             </ActionBtns>
 
             <Cards ref={cardsRef}>
@@ -129,11 +134,12 @@ export const TimePeriods: FC = () => {
                     </SwiperSlide>
                   ))}
               </Swiper>
+
               <PrevBtn className={PREV_SWIPER_BUTTON_CLASS}>
-                <ArrowRight />
+                <ArrowLeft />
               </PrevBtn>
               <NextBtn className={NEXT_SWIPER_BUTTON_CLASS}>
-                <ArrowLeft />
+                <ArrowRight />
               </NextBtn>
             </Cards>
           </div>

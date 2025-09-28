@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
+import { RoundButton } from '../RoundButton/RoundButton';
 
 const CIRCLE_SIZE = 530;
 const DOT_SIZE = 6;
-const OPEN_DOT_SIZE = 56;
 
 export const ItemText = styled.div`
   position: relative;
@@ -35,15 +35,18 @@ export const ItemLabel = styled.div<{ isVisible: boolean }>`
         `}
 `;
 
-const openDotStyles = css`
-  width: ${OPEN_DOT_SIZE}px;
-  height: ${OPEN_DOT_SIZE}px;
-  background: ${({ theme }) => theme.colors.dotBackground};
-  border-color: ${({ theme }) => theme.colors.dotBorder};
-  color: ${({ theme }) => theme.colors.blackBlue};
+const closedDotStyles = css`
+  height: ${DOT_SIZE}px;
+  width: ${DOT_SIZE}px;
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.blackBlue};
+  border-color: ${({ theme }) => theme.colors.blackBlue};
+  color: transparent;
 `;
 
-export const Item = styled.button<{
+export const Item = styled(RoundButton).attrs({
+  size: 'xl',
+})<{
   pointIndex: number;
   isActive: boolean;
 }>`
@@ -51,21 +54,6 @@ export const Item = styled.button<{
   top: 50%;
   left: 50%;
 
-  width: ${DOT_SIZE}px;
-  height: ${DOT_SIZE}px;
-  font-size: 20px;
-  line-height: 30px;
-
-  background: ${({ theme }) => theme.colors.blackBlue};
-  border: 1px solid transparent;
-  border-radius: 50%;
-  color: transparent;
-  cursor: pointer;
-  padding: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition:
     width 0.3s ease,
     height 0.3s ease,
@@ -73,10 +61,14 @@ export const Item = styled.button<{
     color 0.3s ease 0.15s,
     transform 0.7s ease;
 
-  &:hover {
-    ${openDotStyles}
-  }
-  ${({ isActive }) => (!isActive ? '' : openDotStyles)}
+  ${({ isActive }) =>
+    isActive
+      ? css``
+      : css`
+          &:not(:hover) {
+            ${closedDotStyles}
+          }
+        `}
 `;
 
 export const CircleDecorationLine = styled.div<{

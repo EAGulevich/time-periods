@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import AnimatedNumber from '../AnimatedNumber/AnimatedNumber';
+import { RoundButton } from '../RoundButton/RoundButton';
 
 const CIRCLE_CENTER_Y = 480;
 
@@ -109,24 +110,11 @@ export const DISABLED_SWIPER_BUTTON_CLASS = 'swiper-btn-disabled';
 export const NEXT_SWIPER_BUTTON_CLASS = 'swiper-btn-next';
 export const PREV_SWIPER_BUTTON_CLASS = 'swiper-btn-prev';
 
-const SwiperNavigationButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: 50%;
-  box-shadow: 0 0 5px ${({ theme }) => theme.colors.blue};
-  cursor: pointer;
+const SwiperNavigationButton = styled(RoundButton).attrs({
+  size: 'md',
+  variant: 'float',
+})`
   z-index: 10;
-  svg {
-    path {
-      stroke: ${({ theme }) => theme.colors.blue};
-    }
-  }
 
   &.${DISABLED_SWIPER_BUTTON_CLASS} {
     display: none;
