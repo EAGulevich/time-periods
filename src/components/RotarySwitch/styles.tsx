@@ -4,7 +4,36 @@ const CIRCLE_SIZE = 530;
 const DOT_SIZE = 6;
 const OPEN_DOT_SIZE = 56;
 
-export const ItemText = styled.div``;
+export const ItemText = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+export const ItemLabel = styled.div<{ isVisible: boolean }>`
+  position: absolute;
+  left: calc(100% + 20px);
+  color: ${({ theme }) => theme.colors.blackBlue};
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: bold;
+
+  ${({ isVisible }) =>
+    isVisible
+      ? css`
+          opacity: 1;
+          transition-duration: 0.3s;
+          transition-delay: 0.5s;
+          transition-property: opacity;
+        `
+      : css`
+          opacity: 0;
+          transition-property: opacity;
+          transition-duration: 0s;
+          transition-delay: 0s;
+        `}
+`;
 
 const openDotStyles = css`
   width: ${OPEN_DOT_SIZE}px;
@@ -31,7 +60,6 @@ export const Item = styled.button<{
   border: 1px solid transparent;
   border-radius: 50%;
   color: transparent;
-  overflow: hidden;
   cursor: pointer;
   padding: 0;
 

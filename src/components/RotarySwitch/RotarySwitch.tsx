@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { CircleDecorationLine, Item, ItemText } from './styles';
+import { CircleDecorationLine, Item, ItemLabel, ItemText } from './styles';
 
 type Point = {
   /** Порядковый номер пункта, отображаемый внутри точки (например, 1 - 6) */
@@ -40,7 +40,12 @@ export const RotarySwitch: FC<CircleSwitcherProps> = ({
           isActive={currentPoint === step.pointNumber}
           onClick={() => onChange(step)}
         >
-          <ItemText>{step.pointNumber}</ItemText>
+          <ItemText>
+            {step.pointNumber}
+            <ItemLabel isVisible={currentPoint === step.pointNumber}>
+              {step.label}
+            </ItemLabel>
+          </ItemText>
         </Item>
       ))}
     </CircleDecorationLine>
