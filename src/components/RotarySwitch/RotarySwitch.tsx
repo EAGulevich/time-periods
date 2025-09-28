@@ -22,6 +22,7 @@ export const RotarySwitch: FC<CircleSwitcherProps> = ({
   currentPoint,
   points,
   onChange,
+  ...props
 }) => {
   // Первый пункт - сверху окружности
   const degreeOfPoint = -360 - (currentPoint - 1) * 60;
@@ -30,6 +31,7 @@ export const RotarySwitch: FC<CircleSwitcherProps> = ({
 
   return (
     <CircleDecorationLine
+      {...props}
       degreeOfDisplacement={degreeOfDisplacement}
       pointsCount={points.length}
     >

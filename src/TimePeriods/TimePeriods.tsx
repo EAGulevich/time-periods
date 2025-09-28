@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { FC } from 'react';
 import {
   Cards,
@@ -12,130 +12,132 @@ import {
   Title,
   VerticalDecorationLine,
   Year,
-  DISABLED_SWIPER_BUTTON_CLASS,
-  NEXT_SWIPER_BUTTON_CLASS,
-  PREV_SWIPER_BUTTON_CLASS,
+  SWIPER_DISABLED_BUTTON_CLASS,
+  SWIPER_NEXT_BUTTON_CLASS,
+  SWIPER_PREV_BUTTON_CLASS,
   Steps,
   StepActions,
+  StyledRotarySwitch,
+  StepsWrapper,
+  StyledPagination,
+  SWIPER_PAGINATION_CLASS,
+  SWIPER_PAGINATION_BULLET_CLASS,
 } from './styles';
-import { RotarySwitch } from '../components/RotarySwitch/RotarySwitch';
 import { Card } from '../components/Card/Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Navigation, Pagination, A11y } from 'swiper/modules';
 import ArrowRight from '../assets/icons/ArrowRight.svg';
 import ArrowLeft from '../assets/icons/ArrowLeft.svg';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { DATA } from '../consts';
-import gsap from 'gsap';
+import { DATA } from '../TEST_DATA';
 import { RoundButton } from '../components/RoundButton/RoundButton';
+import { useTimePeriods } from './useTimePeriods';
+import {
+  NavigationOptions,
+  PaginationOptions,
+  SwiperModule,
+} from 'swiper/types';
+import { useMediaQuery } from 'react-responsive';
+import { breakpoints } from '../styles/theme';
 
-// TODO: вынести длительность анимации в константу, сделать одновременное появление лейбла в круге и списка снизу
+const swiperModules: SwiperModule[] = [Navigation, Pagination, A11y];
+const swiperNavigation: NavigationOptions = {
+  prevEl: `.${SWIPER_PREV_BUTTON_CLASS}`,
+  nextEl: `.${SWIPER_NEXT_BUTTON_CLASS}`,
+  disabledClass: SWIPER_DISABLED_BUTTON_CLASS,
+};
+const swiperMobilePagination: PaginationOptions = {
+  el: `.${SWIPER_PAGINATION_CLASS}`,
+  clickable: true,
+  bulletClass: SWIPER_PAGINATION_BULLET_CLASS,
+};
 
 export const TimePeriods: FC = () => {
-  const [current, setCurrent] = useState<number>(1);
-  const cardsRef = useRef<HTMLDivElement | null>(null);
-  const [isCardsVisible, setIsCardsVisible] = useState(false);
-
-  const currentPoints = DATA.points.find(p => p.number === current)?.data || [];
-  const maxYear = Math.max(...currentPoints.map(p => p.year));
-  const minYear = Math.min(...currentPoints.map(p => p.year));
-
-  useEffect(() => {
-    // Показать элемент при изменении isVisible
-    gsap.fromTo(
-      cardsRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.3, ease: 'power2.in' }
-    );
-  }, [isCardsVisible]);
-
-  const onTogglePoint = (current: number) => {
-    gsap.to(cardsRef.current, {
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power2.out',
-      onComplete: () => {
-        setIsCardsVisible(!isCardsVisible);
-      },
-    });
-    setTimeout(() => {
-      setCurrent(current);
-    }, 300);
-  };
+  const {
+    maxYear,
+    minYear,
+    currentPoint,
+    currentCards,
+    onTogglePoint,
+    cardsRef,
+  } = useTimePeriods();
+  const isMobile = useMediaQuery({ maxWidth: breakpoints.xl - 1 });
 
   return (
     <TimePeriodsWrapper>
       <VerticalDecorationLine />
       <HorizontalDecorationLine />
-      <CircleContainer>
-        <Dates>
-          <Year value={minYear} />
-          <Year type={'secondary'} value={maxYear} />
-        </Dates>
-        <RotarySwitch
-          points={DATA.points.map(item => ({
-            label: item.label,
-            pointNumber: item.number,
-          }))}
-          currentPoint={current}
-          onChange={newStep => {
-            onTogglePoint(newStep.pointNumber);
-          }}
-        />
-      </CircleContainer>
+
       <Content>
         <Title>{DATA.title.replace(' ', '\n')}</Title>
-        <Steps>
-          0{current}/0{DATA.points.length}
-        </Steps>
-        <StepActions>
-          <RoundButton
-            size={'lg'}
-            onClick={() => onTogglePoint(current - 1)}
-            disabled={current === 1}
-          >
-            <ArrowLeft />
-          </RoundButton>
+        <CircleContainer>
+          <Dates>
+            <Year value={minYear} />
+            <Year type={'secondary'} value={maxYear} />
+          </Dates>
+          <StyledRotarySwitch
+            points={DATA.points.map(item => ({
+              label: item.label,
+              pointNumber: item.number,
+            }))}
+            currentPoint={currentPoint}
+            onChange={newStep => {
+              onTogglePoint(newStep.pointNumber);
+            }}
+          />
+        </CircleContainer>
+        <StepsWrapper>
+          <div>
+            <Steps>
+              0{currentPoint}/0{DATA.points.length}
+            </Steps>
+            <StepActions>
+              <RoundButton
+                size={isMobile ? 'sm' : 'lg'}
+                onClick={() => onTogglePoint(currentPoint - 1)}
+                disabled={currentPoint === 1}
+              >
+                <ArrowLeft />
+              </RoundButton>
 
-          <RoundButton
-            size={'lg'}
-            onClick={() => onTogglePoint(current + 1)}
-            disabled={current === DATA.points.length}
-          >
-            <ArrowRight />
-          </RoundButton>
-        </StepActions>
+              <RoundButton
+                size={isMobile ? 'sm' : 'lg'}
+                onClick={() => onTogglePoint(currentPoint + 1)}
+                disabled={currentPoint === DATA.points.length}
+              >
+                <ArrowRight />
+              </RoundButton>
+            </StepActions>
+          </div>
 
+          {isMobile && <StyledPagination className={SWIPER_PAGINATION_CLASS} />}
+        </StepsWrapper>
         <Cards ref={cardsRef}>
           <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            navigation={{
-              prevEl: `.${PREV_SWIPER_BUTTON_CLASS}`,
-              nextEl: `.${NEXT_SWIPER_BUTTON_CLASS}`,
-              disabledClass: DISABLED_SWIPER_BUTTON_CLASS,
-            }}
-            // pagination={{ clickable: true }}
-            spaceBetween={40}
-            slidesPerView={3}
+            modules={swiperModules}
+            navigation={swiperNavigation}
+            pagination={isMobile ? swiperMobilePagination : undefined}
+            spaceBetween={isMobile ? 25 : 40}
+            slidesPerView={isMobile ? 1.4 : 3}
           >
-            {currentPoints
-              .sort((a, b) => a.year - b.year)
-              .map(item => (
-                <SwiperSlide>
-                  <Card title={item.year} description={item.description} />
-                </SwiperSlide>
-              ))}
+            {currentCards.map(item => (
+              <SwiperSlide>
+                <Card
+                  size={isMobile ? 'small' : 'default'}
+                  title={item.year}
+                  description={item.description}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
 
-          <SwiperPrevBtn className={PREV_SWIPER_BUTTON_CLASS}>
+          <SwiperPrevBtn className={SWIPER_PREV_BUTTON_CLASS}>
             <ArrowLeft />
           </SwiperPrevBtn>
-          <SwiperNextBtn className={NEXT_SWIPER_BUTTON_CLASS}>
+          <SwiperNextBtn className={SWIPER_NEXT_BUTTON_CLASS}>
             <ArrowRight />
           </SwiperNextBtn>
         </Cards>

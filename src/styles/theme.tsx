@@ -12,8 +12,14 @@ export const colors = {
   white: '#FFFFFF',
 };
 
+export const breakpoints = {
+  xl: 1440,
+  sm: 576,
+};
+
 export const theme = {
   colors,
+  breakpoints,
 };
 
 export type Theme = typeof theme;

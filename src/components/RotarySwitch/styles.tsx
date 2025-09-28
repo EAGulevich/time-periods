@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { RoundButton } from '../RoundButton/RoundButton';
+import { ANIMATION_DURATION_S } from '../../constants';
 
 const CIRCLE_SIZE = 530;
 const DOT_SIZE = 6;
@@ -25,8 +26,8 @@ export const ItemLabel = styled.div<{
     isVisible
       ? css`
           opacity: 1;
-          transition-duration: 0.3s;
-          transition-delay: 0.5s;
+          transition-duration: ${ANIMATION_DURATION_S}s;
+          transition-delay: ${ANIMATION_DURATION_S}s;
           transition-property: opacity;
         `
       : css`
@@ -56,11 +57,11 @@ export const Item = styled(RoundButton).attrs({
   left: 50%;
 
   transition:
-    width 0.3s ease,
-    height 0.3s ease,
-    background 0.3s ease,
-    color 0.3s ease 0.15s,
-    transform 0.7s ease;
+    width ${ANIMATION_DURATION_S}s ease,
+    height ${ANIMATION_DURATION_S}s ease,
+    background ${ANIMATION_DURATION_S}s ease,
+    color ${ANIMATION_DURATION_S}s ease ${ANIMATION_DURATION_S / 2}s,
+    transform ${ANIMATION_DURATION_S}s ease;
 
   ${({ isActive }) =>
     isActive

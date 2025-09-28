@@ -1,24 +1,17 @@
 import React from 'react';
-import { TimePeriods } from './components/TimePeriods/TimePeriods';
+import { TimePeriods } from './TimePeriods/TimePeriods';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
+import { GlobalStyle } from './styles/global';
+import { StyledApp } from './styles';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          minWidth: '1440px',
-          maxWidth: '1440px',
-          height: '1080px',
-          maxHeight: '1080px',
-          margin: '20px auto',
-        }}
-      >
+      <GlobalStyle />
+      <StyledApp>
         <TimePeriods />
-      </div>
+      </StyledApp>
     </ThemeProvider>
   );
 };

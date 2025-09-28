@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ANIMATION_DURATION_S } from '../../constants';
 
 type AnimatedNumberProps = {
   /** Число, которое при изменении будет анимировано */
@@ -17,7 +18,7 @@ type AnimatedNumberProps = {
 const AnimatedNumber: FC<AnimatedNumberProps> = ({
   value,
   delay = 0,
-  duration = 1,
+  duration = ANIMATION_DURATION_S,
   ...props
 }) => {
   const numberRef = useRef<HTMLSpanElement | null>(null);
